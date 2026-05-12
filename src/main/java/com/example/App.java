@@ -16,27 +16,38 @@ public class App {
         options.addArguments("--headless=new");
         options.addArguments("--no-sandbox");
         options.addArguments("--disable-dev-shm-usage");
-        options.addArguments("--remote-allow-origins=*");
         options.addArguments("--disable-gpu");
+        options.addArguments("--remote-allow-origins=*");
         options.addArguments("--window-size=1920,1080");
 
         WebDriver driver = new ChromeDriver(options);
 
-        driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(60));
+        driver.manage().timeouts()
+                .pageLoadTimeout(Duration.ofSeconds(20));
 
-        driver.get("https://www.saucedemo.com/");
+        try {
 
-        driver.findElement(By.id("user-name"))
-                .sendKeys("standard_user");
+            driver.get("https://www.saucedemo.com/");
 
-        driver.findElement(By.id("password"))
-                .sendKeys("secret_sauce");
+            driver.findElement(By.id("user-name"))
+                    .sendKeys("standard_user");
 
-        driver.findElement(By.id("login-button"))
-                .click();
+            driver.findElement(By.id("password"))
+                    .sendKeys("secret_sauce");
 
-        System.out.println("Login Successful");
+            driver.findElement(By.id("login-button"))
+                    .click();
 
-        driver.quit();
+            System.out.println("Login Successful");
+
+        } catch (Exception e) {
+
+            System.out.println("Test Failed");
+            e.printStackTrace();
+
+        } finally {
+
+            driver.quit();
+        }
     }
 }
