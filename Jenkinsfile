@@ -27,7 +27,7 @@ pipeline {
 
         stage('Run Login Test') {
             steps {
-                sh 'mvn exec:java -Dexec.mainClass=com.example.App'
+                sh 'timeout 60s mvn exec:java -Dexec.mainClass=com.example.App'
             }
         }
     }
