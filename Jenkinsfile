@@ -3,6 +3,7 @@ pipeline {
 
     tools {
         maven 'Maven'
+        jdk 'JDK17'
     }
 
     stages {
@@ -29,7 +30,7 @@ pipeline {
 
     post {
         success {
-            echo 'Selenium CI/CD Successful!'
+            echo 'Pipeline Success!'
         }
 
         failure {
