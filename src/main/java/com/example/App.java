@@ -5,10 +5,11 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
-public class App
-{
-    public static void main(String[] args)
-    {
+import java.time.Duration;
+
+public class App {
+
+    public static void main(String[] args) {
 
         ChromeOptions options = new ChromeOptions();
 
@@ -16,21 +17,25 @@ public class App
         options.addArguments("--no-sandbox");
         options.addArguments("--disable-dev-shm-usage");
         options.addArguments("--remote-allow-origins=*");
+        options.addArguments("--disable-gpu");
+        options.addArguments("--window-size=1920,1080");
 
         WebDriver driver = new ChromeDriver(options);
 
+        driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(60));
+
         driver.get("https://www.saucedemo.com/");
 
-        driver.manage().window().maximize();
+        driver.findElement(By.id("user-name"))
+                .sendKeys("standard_user");
 
-        driver.findElement(By.id("user-name")).sendKeys("standard_user");
+        driver.findElement(By.id("password"))
+                .sendKeys("secret_sauce");
 
-        driver.findElement(By.id("password")).sendKeys("secret_sauce");
+        driver.findElement(By.id("login-button"))
+                .click();
 
-        driver.findElement(By.id("login-button")).click();
-
-        System.out.println("Login successful");
-        System.out.println("Page title: " + driver.getTitle());
+        System.out.println("Login Successful");
 
         driver.quit();
     }
